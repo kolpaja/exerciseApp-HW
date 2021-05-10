@@ -29,7 +29,7 @@ app.post("/api/workouts", (req, res) => {
 app.put("/api/workouts/:id", (req, res) => {
   console.log('put', req.params.id);
   console.log('req.body: ', req.body);
-  db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, { new: true, runValidators: true }).then(data => console.log('data:', data))
+  db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, { new: true, runValidators: true }).then(data => res.json({}));
 })
 
 
