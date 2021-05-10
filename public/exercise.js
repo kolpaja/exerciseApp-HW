@@ -13,7 +13,6 @@ const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const newWorkout = document.querySelector(".new-workout")
-
 let workoutType = null;
 let shouldNavigateAway = false;
 
@@ -113,7 +112,7 @@ async function handleFormSubmit(event) {
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
-
+  console.log('workoutdata', workoutData);
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
