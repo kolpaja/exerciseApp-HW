@@ -40,8 +40,14 @@ app.put("/api/workouts/:id", (req, res) => {
   ).then((data) => res.json({}));
 });
 
-app.get("/api/workouts/range", async (req, res) => {
-  db.Workout.find({ day: { $lte: new Date() } });
+app.get("/api/workouts/range", (req, res) => {
+  db.Workout.find({ day: { $lt: new Date() } }).then((d) => res.json(d));
+  // console.log("workout range: ", workout);
+});
+
+app.get("/api/workouts", (req, res) => {
+  db.Workout.find({ day: { $lt: new Date() } }).then((d) => res.json(d));
+  // console.log("workout continue: ", lastworkout._id);
 });
 
 app.listen(3000, () => console.log("Connected on port: 3000"));
