@@ -41,13 +41,23 @@ app.put("/api/workouts/:id", (req, res) => {
 });
 
 app.get("/api/workouts/range", (req, res) => {
-  db.Workout.find({ day: { $lt: new Date() } }).then((d) => res.json(d));
-  // console.log("workout range: ", workout);
+  db.Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: { $sum: "$exercises.duration" }
+      }
+    }
+  ]).sort({ _id: 0 }).limit(1).then(data => res.json(data))
 });
 
 app.get("/api/workouts", (req, res) => {
-  db.Workout.find({ day: { $lt: new Date() } }).then((d) => res.json(d));
-  // console.log("workout continue: ", lastworkout._id);
+  db.Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: { $sum: "$exercises.duration" }
+      }
+    }
+  ]).then(data => res.json(data))
 });
 
 app.listen(3000, () => console.log("Connected on port: 3000"));
